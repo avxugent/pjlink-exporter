@@ -139,7 +139,7 @@ class PJLinkCollector:
         # --- pjlink_device (info) ---
         device_family = InfoMetricFamily(
             "pjlink_device",
-            "Device identity reported over PJLink (NAME/INF1/INF2/CLSS).",
+            "Device identity reported over PJLink (NAME/INF1/INF2/INFO/CLSS).",
             labels=base_labels,
         )
         for dev_cfg, r in results:
@@ -150,6 +150,8 @@ class PJLinkCollector:
                 info["manufacturer"] = r.manufacturer
             if r.product_name:
                 info["product_name"] = r.product_name
+            if r.other_info:
+                info["other_info"] = r.other_info
             if r.pjlink_class is not None:
                 info["pjlink_class"] = str(r.pjlink_class)
             if info:

@@ -87,6 +87,9 @@ class ProbeResult:
     name: Optional[str] = None
     manufacturer: Optional[str] = None
     product_name: Optional[str] = None
+    # Free-text "other information" (INFO query). Not standardized by PJLink
+    # itself, but most vendors — Epson included — put the firmware version here.
+    other_info: Optional[str] = None
 
 
 class _ProtocolError(ConnectionError):
@@ -227,7 +230,12 @@ def probe_device(
                 except (LookupError, ValueError) as exc:
                     logger.debug("FILT query failed for %s: %s", host, exc)
 
-            for attr, cmd in (("name", "NAME"), ("manufacturer", "INF1"), ("product_name", "INF2")):
+            for attr, cmd in (
+                ("name", "NAME"),
+                ("manufacturer", "INF1"),
+                ("product_name", "INF2"),
+                ("other_info", "INFO"),
+            ):
                 try:
                     setattr(result, attr, session.query(cmd))
                 except LookupError as exc:
