@@ -1,0 +1,13 @@
+services:
+  pjlink-exporter:
+    image: kristofkeppens/pjlink-exporter:latest
+    container_name: pjlink-exporter
+    restart: unless-stopped
+    ports:
+      - "9878:9878"
+    volumes:
+      # Optional: mount a custom config to override the built-in default.
+      # Remove or comment out this line to use the image's default config.
+      - ./config.yaml:/etc/pjlink-exporter/config.yaml:ro
+    # Optional: override log level at runtime
+    # command: ["--log-level", "DEBUG"]

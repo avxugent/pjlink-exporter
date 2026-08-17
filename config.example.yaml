@@ -1,0 +1,55 @@
+# pjlink-exporter example configuration
+# Copy this file to config.yaml and adjust to your environment.
+
+# ── HTTP server ───────────────────────────────────────────────────────────────
+
+# Address the HTTP server listens on.
+listen_host: "0.0.0.0"
+
+# Port the HTTP server listens on.
+listen_port: 9878
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+
+# Minimum log level: DEBUG | INFO | WARNING | ERROR | CRITICAL
+log_level: INFO
+
+# ── Devices ───────────────────────────────────────────────────────────────────
+
+# List of PJLink-capable projectors/displays to monitor (Epson and any other
+# PJLink-compliant brand). This list is OPTIONAL. When left empty (or omitted
+# entirely) the exporter operates in URL-parameter mode only: every probe
+# request must supply the target device via query parameters, e.g.:
+#
+#   GET /probe?host=192.168.1.10&name=room-101
+#
+# When devices ARE listed here they are probed on every plain GET /probe
+# request (config-file mode). URL-parameter mode is always available alongside
+# config-file mode regardless of whether devices are listed below.
+#
+# Supported query parameters (all except 'host' are optional):
+#   host        Hostname or IP address of the device  (required)
+#   name        Label used in Prometheus metrics       (default: value of host)
+#   port        PJLink TCP port                        (default: 4352)
+#   timeout     Request timeout in seconds             (default: 10.0)
+#   password    PJLink password, plaintext fallback     (default: none)
+#
+# Credentials: OpenBao is tried first for every device, keyed by hostname
+# (see bao.py / README "Credentials" section). The 'password' field below (or
+# the URL 'password' param) is only used when that lookup returns nothing —
+# fine for a lab/test device, but for anything else prefer OpenBao so the
+# password isn't sitting in this file.
+#
+#   bao kv put secret/pjlink/192.168.1.10 password=secret
+
+# devices:
+#   - name: projector-room-101       # Unique label used in all Prometheus metrics
+#     host: 192.168.1.10             # Hostname or IP address of the device
+#     port: 4352                     # PJLink TCP port
+#     timeout: 10.0                  # Request timeout in seconds
+#     password: ""                   # Plaintext fallback; prefer OpenBao instead
+
+#   - name: projector-lecture-hall
+#     host: 192.168.1.20
+#     port: 4352
+#     timeout: 10.0
