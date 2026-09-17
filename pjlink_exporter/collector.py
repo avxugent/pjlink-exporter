@@ -150,8 +150,8 @@ class PJLinkCollector:
                 info["manufacturer"] = r.manufacturer
             if r.product_name:
                 info["product_name"] = r.product_name
-            if r.other_info:
-                info["other_info"] = r.other_info
+            if r.version:
+                info["version"] = r.version
             if r.pjlink_class is not None:
                 info["pjlink_class"] = str(r.pjlink_class)
             if info:

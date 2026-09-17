@@ -120,7 +120,7 @@ Both modes are always available; a request with a `host` parameter always wins f
 -   `pjlink_lamp_hours` (labels: `lamp`): Cumulative lamp usage hours, from `LAMP`. Most projectors have a single lamp (`lamp="0"`); PJLink supports up to eight.
 -   `pjlink_lamp_on` (labels: `lamp`): 1 if that lamp is currently lit, 0 otherwise.
 -   `pjlink_filter_hours`: Cumulative air filter usage hours, from the PJLink Class 2 `FILT` query. Only present for devices that support Class 2 — check `pjlink_device_info{pjlink_class="2"}`. Class 1 devices only expose filter *warning/error* state via `pjlink_error_status{component="filter"}`, not hours.
--   `pjlink_device_info` (info metric, labels: `name`, `manufacturer`, `product_name`, `other_info`, `pjlink_class`): Device identity reported over PJLink (`NAME`/`INF1`/`INF2`/`INFO`/`CLSS`). Registered as `pjlink_device` in code — `InfoMetricFamily` appends the `_info` suffix in the exposition format. `other_info` (`INFO` query) is free text, not standardized by PJLink — most vendors, Epson included, put the firmware version there.
+-   `pjlink_device_info` (info metric, labels: `name`, `manufacturer`, `product_name`, `version`, `pjlink_class`): Device identity reported over PJLink (`NAME`/`INF1`/`INF2`/`INFO`/`CLSS`). Registered as `pjlink_device` in code — `InfoMetricFamily` appends the `_info` suffix in the exposition format. `version` (`INFO` query) is free text, not standardized by PJLink — most vendors, Epson included, put the firmware version there.
 
 All device metrics carry `device` (the configured name) and `host` labels.
 

@@ -89,7 +89,7 @@ class ProbeResult:
     product_name: Optional[str] = None
     # Free-text "other information" (INFO query). Not standardized by PJLink
     # itself, but most vendors — Epson included — put the firmware version here.
-    other_info: Optional[str] = None
+    version: Optional[str] = None
 
 
 class _ProtocolError(ConnectionError):
@@ -234,7 +234,7 @@ def probe_device(
                 ("name", "NAME"),
                 ("manufacturer", "INF1"),
                 ("product_name", "INF2"),
-                ("other_info", "INFO"),
+                ("version", "INFO"),
             ):
                 try:
                     setattr(result, attr, session.query(cmd))
